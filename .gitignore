@@ -6,4 +6,4 @@ sib/
 video/
 xml/
 .gitignore
-
+.DS_Store
