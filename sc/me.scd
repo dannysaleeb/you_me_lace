@@ -2,16 +2,18 @@
 /*-------------------------------------------*/
 /*================LOAD=======================*/
 /*-------------------------------------------*/
-~path = thisProcess.nowExecutingPath.dirname.dirname;
+var path;
+
+path = thisProcess.nowExecutingPath.dirname;
 
 // Load helpers
 ["binSelect", "parseRt", "dnaStrand", "getOrganism", "morseToDur"].do({
 	arg function;
-	(~path +/+ "composer_functions/" ++ function ++ ".scd").load;
+	(path +/+ "composer_functions/" ++ function ++ ".scd").load;
 })
 )
 
-~me_a = ~me_a.morseselect("TT", zeroMultiplier: 2);
+// ~me_a = ~me_a.morseselect("TT", zeroMultiplier: 2);
 
 (
 // GET ME
@@ -21,14 +23,14 @@
 ~me_a = 7.collect({
 	arg i;
 	~me_a.morseselect("Tallis", (("Tallis".morse2bin.size * i) % ~me_a.size), zeroMultiplier: 2)
-}).flatten
+}).flatten;
 
 ~me_b = 7.collect({
 	arg i;
 	~me_a.morseselect("Tallis", (("Tallis".morse2bin.size * i + 3) % ~me_a.size), zeroMultiplier: 2)
 }).flatten
 
-~me_a = ~me_a.collect({
+/*~me_a = ~me_a.collect({
 	arg chord, count;
 	~binSelect.value("TT", ~me_a, offset: count, mode: "morse");
 }).flatten;
@@ -36,7 +38,7 @@
 ~me_b = ~me_b.collect({
 	arg chord, count;
 	~binSelect.value("Danny", ~me_b, offset: count, mode: "morse")
-}).flatten;
+}).flatten;*/
 
 ~me = ~getInterleaved.value(~me_a, ~me_b);
 ~me.size;
